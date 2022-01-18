@@ -20,11 +20,11 @@ type Character = {
 }
 
 type Filters = {
-  name: ''
-  status: ''
-  species: ''
-  type: ''
-  gender: ''
+  name: string
+  status: string
+  species: string
+  type: string
+  gender: string
 }
 
 type Info = {
