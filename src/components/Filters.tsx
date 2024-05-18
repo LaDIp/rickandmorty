@@ -3,6 +3,7 @@ import { Button, Form, Collapse } from 'antd'
 import FilterInput from './FilterInput'
 import FilterSerach from './FilterSerach'
 import { GENDERS, SPECIES, STATUSES } from '../const'
+import { useFeature } from '../useFeature'
 
 type propTypes = {
   defaultFilters?: Filters
@@ -11,6 +12,7 @@ type propTypes = {
 }
 
 function Filters({ defaultFilters, onChange, onReset }: propTypes) {
+  const isSearch = useFeature('bbdb177c-72b2-4d65-85d2-f5ca65f2b21d')
   const [form] = Form.useForm()
   const filters: Filters = defaultFilters || {
     name: '',
@@ -30,6 +32,8 @@ function Filters({ defaultFilters, onChange, onReset }: propTypes) {
     form.resetFields()
   }
 
+  console.log(isSearch)
+
   return (
     <Form
       labelCol={{ span: 6 }}
@@ -37,13 +41,13 @@ function Filters({ defaultFilters, onChange, onReset }: propTypes) {
       form={form}
       name='filters'
       style={{ width: '300px' }}>
-      <Form.Item name='name' wrapperCol={{ span: 24 }}>
+      {isSearch && <Form.Item name='name' wrapperCol={{ span: 24 }}>
         <FilterSerach
           name='name'
           value={filters.name}
           onSearch={handleChangeFilter}
         />
-      </Form.Item>
+      </Form.Item>}
       <Collapse accordion>
         <Collapse.Panel header='Filters' key='1'>
           <Form.Item name='gender' label='Gender'>
